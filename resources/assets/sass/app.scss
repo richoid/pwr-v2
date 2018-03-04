@@ -1,14 +1,60 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800");
+@import "node_modules/font-awesome/scss/font-awesome.scss";
+@import url("//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css");
+
 
 // Variables
 @import "variables";
 
 // Bootstrap
-@import '~bootstrap/scss/bootstrap';
+@import 'node_modules/bootstrap/scss/bootstrap.scss';
 
 .navbar-laravel {
-  background-color: #fff;
+  background-color: #540202;
+  color:#fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+.navbar-laravel .dropdown-item {
+    color:#212529;
+}
+
+.navbar-item {
+	padding:15px 10px 15px 10px;
+	color:#ddd;
+}
+.navbar-item.divider {
+	color:#e19502;
+}
+ .navbar-item a, .navbar-item a:visited {
+	color:#fff;
+}
+.navbar-brand {
+    font-size: 18px;
+    line-height: 20px;
+    font-weight:200;
+}
+.pwr-brand {
+    color:#e19502 !important;
+}
+.client-brand {
+    color:#fff;
+    font-weight:600;
+}
+html {
+	background: #ddf09a url('/images/default/bg.jpg')  no-repeat center center fixed;
+  	-webkit-background-size: cover;
+  	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+}
+body {
+    background:transparent;
+}
+.card {
+    background-color:rgba(255, 255, 255, 0.95)
+}
+.img-circle {
+    border-radius: 50%;
 }

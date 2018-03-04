@@ -5,17 +5,17 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>ParkWatchReport</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,600" rel="stylesheet" type="text/css">
 
         <!-- Styles -->
         <style>
             html, body {
                 background-color: #fff;
                 color: #636b6f;
-                font-family: 'Raleway', sans-serif;
+                font-family: 'Open Sans', sans-serif;
                 font-weight: 100;
                 height: 100vh;
                 margin: 0;
@@ -83,11 +83,15 @@
                 </div>
 
                 <div class="links">
-                    <a href="https://laravel.com/docs">Documentation</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                    <a href="https://www.parkwatchreport.com">About ParkWatchReport</a>
+                    <div>
+                        <a href="https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=963181263&amp;mt=8">
+                            <img src="/wp-content/uploads/2015/02/app_store_icon.png" alt="iTunes Store icon" style="width:120px">
+                        </a>
+                        <a href="https://play.google.com/store/apps/details?id=com.goodbarber.parkwatchreport">
+                            <img src="/wp-content/uploads/2015/02/android-icon1.png" alt="iTunes Store icon" style="width:120px">
+                        </a>
+                    </div>                    
                 </div>
             </div>
         </div>
