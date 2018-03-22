@@ -22,7 +22,7 @@
                         </a>
                     </p>
                     @endif
-                        <a href="/profile/{{$profile->id}}/edit">
+                        <a href="/profile/{{ $profile->id }}/edit">
                             <button class="btn btn-sm btn-info">
                                 Edit Account&nbsp;&nbsp;
                                 <i class="fa fa-cog align-middle"></i>
@@ -47,15 +47,32 @@
                     <ul class="list-group no-margin text-left">
                         <li class="list-group-item">
                             <i class="fa fa-envelope align-middle"></i> 
-                            <small>support@bootdey.com</small>
+                        <small>{{ $profile->email }}</small>
                         </li>
-                        <li class="list-group-item">
-                            <i class="fa fa-globe align-middle"></i> 
-                            <small>www.bootdey.com</small>
-                        </li>
+                    
                         <li class="list-group-item">
                             <i class="fa fa-phone align-middle"></i> 
-                            <small>+6281 903 xxx xxx</small>
+                            @if($profile->phone_m)
+                            @if($profile->phone_prefs === 'mobile')
+                            <small>Mobile: <strong>{{ $profile->phone_m }}</strong></small><br>
+                            @else
+                            <small>Mobile: {{ $profile->phone_m }}</small><br>
+                            @endif
+                            @endif
+                            @if($profile->phone_h)	
+                                @if($profile->phone_prefs === 'home')
+                                <small>Home: <strong>{{ $profile->phone_h }}</small></strong><br>
+                                @else
+                                <small>Home: <strong>{{ $profile->phone_h }}</strong></small><br>
+                                @endif
+                            @endif
+                            @if($profile->phone_w)	
+                                @if($profile->phone_prefs === 'work')
+                                <small>Work: <strong>{{ $profile->phone_w }}</strong></small><br>
+                                @else
+                                <small>Work: {{ $profile->phone_w }}</small><br>
+                                @endif
+                            @endif                        
                         </li>
                     </ul>
                 </div><!-- /.panel-body -->

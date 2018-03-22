@@ -1,99 +1,102 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
+@section('header')
+<style>
+        html, body {
+            height: 100vh;
+        }
 
-        <title>ParkWatchReport</title>
+        .full-height {
+            height: 100vh;
+        }
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:100,600" rel="stylesheet" type="text/css">
+        .flex-center {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
 
-        <!-- Styles -->
-        <style>
-            html, body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: 'Open Sans', sans-serif;
-                font-weight: 100;
-                height: 100vh;
-                margin: 0;
-            }
+        .position-ref {
+            position: relative;
+        }
 
-            .full-height {
-                height: 100vh;
-            }
+        .top-right {
+            position: absolute;
+            right: 10px;
+            top: 18px;
+        }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+        .content {
+            text-align: center;
+        }
 
-            .position-ref {
-                position: relative;
-            }
+        
+        .links a {
+            color: #fff !important;
+            padding: 0 25px;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: .1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+        .logo img {
+            margin-top: 100px;
+            width:30%;
+        }
+        .btn {
+            background: #3498db;
+            background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+            background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+            background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+            background-image: -o-linear-gradient(top, #3498db, #2980b9);
+            background-image: linear-gradient(to bottom, #3498db, #2980b9);
+            -webkit-border-radius: 5;
+            -moz-border-radius: 5;
+            border-radius: 5px;
+            font-family: Arial;
+            color: #ffffff;
+            font-size: 18px;
+            padding: 12px 40px 10px 40px;
+            text-decoration: none;
+            margin:1rem
+        }
 
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 84px;
-            }
-
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 12px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-                        <a href="{{ route('register') }}">Register</a>
-                    @endauth
-                </div>
-            @endif
+        .btn:hover {
+            background: #3cb0fd;
+            background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+            background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+            text-decoration: none;
+        }
+    </style>
+@endsection
+@section('content')
 
             <div class="content">
-                <div class="title m-b-md">
-                    Laravel
+
+                <div class="logo">
+                    <img src="/resources/assets/images/logo.png" alt="ParkWatchReport">
+                </div>
+                <div>
+                    <a class="btn btn-primary btn-lg" href="https://r2.parkwatchreport.com/report">File a Report</a>
                 </div>
 
                 <div class="links">
-                    <a href="https://www.parkwatchreport.com">About ParkWatchReport</a>
+                    <p>
+                        <a href="https://www.parkwatchreport.com">About ParkWatchReport</a>
+                    </p>
                     <div>
                         <a href="https://itunes.apple.com/WebObjects/MZStore.woa/wa/viewSoftware?id=963181263&amp;mt=8">
-                            <img src="/wp-content/uploads/2015/02/app_store_icon.png" alt="iTunes Store icon" style="width:120px">
+                            <img src="/resources/assets/images/app_store_icon.png" alt="iTunes Store icon" style="width:120px">
                         </a>
                         <a href="https://play.google.com/store/apps/details?id=com.goodbarber.parkwatchreport">
-                            <img src="/wp-content/uploads/2015/02/android-icon1.png" alt="iTunes Store icon" style="width:120px">
+                            <img src="/resources/assets/images/android-icon1.png" alt="iTunes Store icon" style="width:120px">
                         </a>
                     </div>                    
                 </div>
             </div>
         </div>
-    </body>
-</html>
+    @endsection

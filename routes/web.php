@@ -22,6 +22,11 @@ Route::get('profiles', 'ProfileController@index')->name('profiles');
 Route::get('create/user/profile', 'ProfileController@createFromUser')->name('user.profile');
 Route::resource('profile', 'ProfileController');
 
+//passport token management
+Route::get('passport', function () {
+    return view('auth.passport');
+});
+
 //profile images
 Route::get('avatar-upload',['as'=>'avatar.upload','uses'=>'ImageUploadController@imageUpload']);
 Route::post('avatar-upload',['as'=>'avatar.upload.post','uses'=>'ImageUploadController@imageUploadPost']);

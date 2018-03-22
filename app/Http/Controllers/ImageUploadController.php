@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use App\Profile;
 
 class ImageUploadController extends Controller
 
@@ -20,30 +22,26 @@ class ImageUploadController extends Controller
     /**
 
      * Display a listing of the resource.
-
      *
-
      * @return \Illuminate\Http\Response
-
      */
 
     public function imageUploadPost()
-
     {
         request()->validate([
-            'image' => 'required|image|mimes:jpeg,jpg|max:2048',
+            'avatar_url' => 'required|image|mimes:jpeg,jpg|max:2048',
         ]);
 
         $path = '/images/users/avatar/';
         $imageName = Auth::id() . '.jpg';
-        request()->image->move(public_path($path), $imageName);
+        request()->avatar_url->move(public_path($path), $imageName);
 
-        $profile = Profile::where('user_id', Auth::id())->update('avatar_url', $imageName);
+        $profile = Profile::where('user_id', Auth::id())->update(['avatar_url' => $imageName]);
 
 
         return back()
             ->with('success','You have successfully upload image.')
-            ->with('image',$imageName);
+            ->with('avatar_url',$imageName);
     }
 
 }
