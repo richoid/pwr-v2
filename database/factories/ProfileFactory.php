@@ -8,8 +8,8 @@ $factory->define(App\Profile::class, function (Faker $faker) {
     return [
         'user_id' => $faker->numberBetween($min = 1, $max = 20), 
         'email' => $faker->unique()->safeEmail, 
-        'given_name' => $faker->firstName, 
-        'family_name' => $faker->lastName, 
+        'first_name' => $faker->firstName, 
+        'last_name' => $faker->lastName, 
         'phone_m' => $faker->phoneNumber, 
         'phone_h' => $faker->phoneNumber, 
         'phone_w' => $faker->phoneNumber, 

@@ -10,7 +10,7 @@ class Profile extends Model
     use SoftDeletes;
     
     protected $dates = ['birth_date', 'deleted_at'];
-    protected $fillable = ['user_id', 'email', 'given_name', 'family_name', 'phone_m', 'phone_h', 'phone_w', 'phone_prefs', 'street_address', 'address_locality', 'address_region', 'postal_code', 'avatar_url', 'birth_date'];
+    protected $fillable = ['user_id', 'email', 'first_name', 'last_name', 'phone_m', 'phone_h', 'phone_w', 'phone_prefs', 'street_address', 'address_locality', 'address_region', 'postal_code', 'avatar_url', 'birth_date'];
 
     public function user() 
     {

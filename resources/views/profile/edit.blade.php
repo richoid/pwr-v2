@@ -28,10 +28,10 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col">                                                
-				                		        {{ Form::text('given_name', null,['class'=>'form-control', 'placeholder' => 'First Name']) }}
+				                		        {{ Form::text('first_name', null,['class'=>'form-control', 'placeholder' => 'First Name']) }}
                                             </div>
                                             <div class="col">
-                                                {{ Form::text('family_name', null,['class'=>'form-control', 'placeholder' => 'Last Name']) }}
+                                                {{ Form::text('last_name', null,['class'=>'form-control', 'placeholder' => 'Last Name']) }}
                                             </div>
                                         </div>
                                     </div><!-- end card-body -->

@@ -45,8 +45,8 @@ class ProfileController extends Controller
     {
         $profile = new Profile;
         $profile->user_id = $request->input('user_id');
-        $profile->given_name = $request->input('given_name');
-        $profile->family_name = $request->input('family_name');
+        $profile->first_name = $request->input('first_name');
+        $profile->last_name = $request->input('last_name');
         $profile->email = $request->input('email');
         $profile->phone_m = $request->input('phone_m');
         $profile->phone_h = $request->input('phone_h');

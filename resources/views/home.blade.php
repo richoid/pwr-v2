@@ -9,9 +9,9 @@
                 @if(empty($profile->avatar_url))
                     @include('/profile/includes/avatar_missing')
                 @else
-                    <img class="card-img-top img-circle img-responsive img-bordered-primary" src="/images/users/avatar/{{ $profile->user_id }}.jpg" alt="{{ $profile->given_name . ' ' . $profile->family_name }} profile photo">
+                    <img class="card-img-top img-circle img-responsive img-bordered-primary" src="/images/users/avatar/{{ $profile->user_id }}.jpg" alt="{{ $profile->first_name . ' ' . $profile->last_name }} profile photo">
                 @endif
-                    <h4 class="card-title text-capitalize mt-2">{{ $profile->given_name or '' }}&nbsp;{{ $profile->family_name or '' }}</h4>
+                    <h4 class="card-title text-capitalize mt-2">{{ $profile->first_name or '' }}&nbsp;{{ $profile->last_name or '' }}</h4>
                     <p class="text-muted text-capitalize">{{ $profile->role or 'Volunteer' }}</p>
                     @if(Auth::id() !== $profile->id)
                     <p class="mt-4">

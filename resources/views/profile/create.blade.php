@@ -29,10 +29,10 @@
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col">
-                                                <input name="given_name" id="given_name" type="text" class="form-control" placeholder="First Name" tabindex=1 autofocus>
+                                                <input name="first_name" id="given_name" type="text" class="form-control" placeholder="First Name" tabindex=1 autofocus>
                                             </div>
                                             <div class="col">
-                                                <input name="family_name" id="family_name" type="text" class="form-control" placeholder="Last Name" tabindex=2>
+                                                <input name="last_name" id="family_name" type="text" class="form-control" placeholder="Last Name" tabindex=2>
                                             </div>
                                         </div>
                                     </div><!-- end card-body -->

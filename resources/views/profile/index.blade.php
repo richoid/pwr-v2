@@ -32,7 +32,7 @@
                             @foreach($profiles as $profile)
                             <tr>
                             <td>{{ $profile->id }}</td>
-                                <td>{{ $profile->given_name or '' }} {{ $profile->family_name or ''}}</td>
+                                <td>{{ $profile->first_name or '' }} {{ $profile->last_name or ''}}</td>
                                 <td>{{ $profile->role or '' }}</td>
                                 <td>{{ $profile->email }}</td>
                                 <td>{{ $profile->created_at }}</td>
