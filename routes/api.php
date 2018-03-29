@@ -22,9 +22,9 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::get('/profile', 'ProfileController')->middleware('auth:api');
+Route::get('/profile/{email}', 'ProfileController@api_profile')->middleware('auth:api');
 
 /**
  * set up notifications architecture, later
  */
-Route::get('/notifications', 'ProfileController')->middleware('auth:api');
+//Route::get('/notifications', 'ProfileController@notify')->middleware('auth:api');

@@ -69,4 +69,11 @@ class ProfileController extends Controller
         
         return redirect('/users')->with('message', 'User record updated.');
     }
+
+    public function api_profile($email)
+    {
+        $profile = Profile::with('user','social')->where('email', $email)->first();
+        
+        return $profile;
+    }
 }
