@@ -70,10 +70,9 @@ class ProfileController extends Controller
         return redirect('/users')->with('message', 'User record updated.');
     }
 
-    public function api_profile($email)
+    public function api_profile(Request $request, $id)
     {
-        $profile = Profile::with('user','social')->where('email', $email)->first();
-        
-        return $profile;
+        $profile = Profile::with('user','social')->where('id', $id)->first();
+        return return response()->json($profile);
     }
 }
