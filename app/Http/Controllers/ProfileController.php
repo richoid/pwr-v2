@@ -73,6 +73,7 @@ class ProfileController extends Controller
     public function api_profile(Request $request, $id)
     {
         $profile = Profile::with('user','social')->where('id', $id)->first();
+        
         return response()->json($profile, 200);
     }
 }
