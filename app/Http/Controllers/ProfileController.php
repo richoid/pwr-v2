@@ -17,7 +17,7 @@ class ProfileController extends Controller
         return view('profile.index', compact('profiles'));
     }
     public function show()
-	{        
+	{
         $id = Auth::id();
         $profile = Profile::with('user','social')->where('user_id', $id)->first();
 
@@ -57,7 +57,7 @@ class ProfileController extends Controller
         $profile->postal_code = $request->input('postal_code');
         $profile->phone_prefs = $request->input('phone_prefs');
         $profile->save();
-                
+
 
         return redirect('home')->with('message', 'Profile saved.');
     }
@@ -66,14 +66,19 @@ class ProfileController extends Controller
     {
         $profile = App\Profile::findOrFail($id);
         $profile->delete();
-        
+
         return redirect('/users')->with('message', 'User record updated.');
     }
 
     public function api_profile(Request $request, $id)
     {
         $profile = Profile::with('user','social')->where('id', $id)->first();
-        
-        return response()->json($profile, 200);
+
+        if(!empty($profile)){
+            return response()->json($profile, 200);
+        } else {
+            $response = "no matching profile"
+            return response(json_encode($response), 200, ["Content-Type" => "application/json"]);
+        }
     }
 }
