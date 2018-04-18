@@ -77,8 +77,7 @@ class ProfileController extends Controller
         if(!empty($profile)){
             return response()->json($profile, 200);
         } else {
-            $response = "no matching profile"
-            return response(json_encode($response), 200, ["Content-Type" => "application/json"]);
+            return response()->json('message' => 'no matching data', 401);
         }
     }
 }
