@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Profile;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,7 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 */
 Route::get('/user', function (Request $request) {
-    return $request->user()->with('profile');
+    $user_id =  $request->user()->id;
+    return User::with('profiles')->where('id', $user_id)->get();
+
 })->middleware('auth:api');
 
 Route::get('/profile/{id}', 'ProfileController@api_profile')->middleware('auth:api');

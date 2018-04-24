@@ -27,7 +27,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function profiles() 
+    public function profiles()
     {
         return $this->hasOne('App\Profile');
     }
