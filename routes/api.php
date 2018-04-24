@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 */
 Route::get('/user', function (Request $request) {
-    return $request->user();
+    return $request->user()->with('profile');
 })->middleware('auth:api');
 
 Route::get('/profile/{id}', 'ProfileController@api_profile')->middleware('auth:api');
