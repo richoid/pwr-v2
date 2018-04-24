@@ -21,9 +21,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 */
 Route::get('/user', function (Request $request) {
-    return $request->user();
-    //$user_id =  $request->user()->id;
-    //return User::with('profiles')->where('id', $user_id)->get();
+    //return $request->user();
+    $user_id =  $request->user()->id;
+    return User::with('profiles')->where('id', $user_id)->get();
 
 })->middleware('auth:api');
 
