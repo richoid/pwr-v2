@@ -20,12 +20,18 @@ class Profile extends Model
     public function reports() {
         return $this->belongsToMany('App\Reports');
     }
-    
-    public function comments() {
-        return $this->morphMany('App\Comment', 'commentable');
-    }
 
     public function social() {
-        return $this->hasMany('App\Social', 'sociable_id');
+        return $this->hasMany('App\Social');
+    }
+
+    public function posts()
+    {
+        return $this->hasMany('App\Posts');
+    }
+    
+    public function comments()
+    {
+        return $this->morphMany('App\Comment', 'commentable');
     }
 }

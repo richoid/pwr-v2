@@ -14,6 +14,8 @@ class CreateTasksTable extends Migration
      * Run the migrations.
      *
      * @return void
+     * creates taskable id and type (polymorphic)
+     * can be assigned to user, group, activity
      */
     public function up()
     {
@@ -24,16 +26,9 @@ class CreateTasksTable extends Migration
             $table->datetime('due_by');
             $table->integer('priority');
             $table->string('status');
-            $table->integer('assigned_by'); // user_id
-
-        // $table->integer('user_id');
-        // $table->integer('client_id');
-        // $table->integer('activity_id');
-        // $table->integer('group_id');
-        
-            $table->morphs('taskable'); // creates taskable id and type (polymorphic)
-                                        // can be assigned to user, group, activity
-
+            $table->integer('user_id'); // user_id of person creating the task
+            $table->integer('client_id');
+            $table->morphs('taskable'); 
             $table->timestamps();
             $table->softDeletes();
         });

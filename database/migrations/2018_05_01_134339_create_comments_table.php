@@ -17,14 +17,11 @@ class CreateCommentsTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('client_id');
-            $table->string('subject');// a Park, A trail, An Agency, ParkWatch Report , Other
-            $table->text('body');
-            $table->string('visible'); //Positive, Maint, Complaint, Suggestion, other
-            $table->morphs('commentable'); //could reference a profile_id, report_id, etc.
-                                           // in which case the type would be 'profile', 'report', etc.
-                                           // new 'morphs' function creates type and id columns
+            $table->morphs('commentable');
+            $table->string('title');
+            $table->text('body')->nullable();
+            $table->boolean('visible')->nullable()->default('false');
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 

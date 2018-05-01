@@ -30,3 +30,9 @@ Route::get('passport', function () {
 //profile images
 Route::get('avatar-upload',['as'=>'avatar.upload','uses'=>'ImageUploadController@imageUpload']);
 Route::post('avatar-upload',['as'=>'avatar.upload.post','uses'=>'ImageUploadController@imageUploadPost']);
+
+//calendar
+Route::resource('calendar', 'CalendarController');
+
+//alerts
+Route::resource('alerts', 'AlertsController');
