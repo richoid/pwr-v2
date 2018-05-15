@@ -36,3 +36,4 @@ Route::get('/calendar/{client}', 'CalendarController@api_calendar')->middleware(
  * set up notifications architecture, later
  */
 //Route::get('/notifications', 'ProfileController@notify')->middleware('auth:api');
+Route::get('/posts/for/client/{client_short}', 'PostController@api_posts_for_client')->middleware('auth:api');

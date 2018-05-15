@@ -13,7 +13,6 @@
                             <th>Role</th>
                             <th>Email</th>
                             <th>Since</th>
-                            <th>Last Connected</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -24,43 +23,48 @@
                                 <th>Role</th>
                                 <th>Email</th>
                                 <th>Since</th>
-                                <th>Last Connected</th>
                                 <th>Actions</th>
                             </tr>
                         </tfoot>
                         <tbody>
-                            @foreach($profiles as $profile)
-                            <tr>
-                            <td>{{ $profile->id }}</td>
-                                <td>{{ $profile->first_name or '' }} {{ $profile->last_name or ''}}</td>
-                                <td>{{ $profile->role or '' }}</td>
-                                <td>{{ $profile->email }}</td>
-                                <td>{{ $profile->created_at }}</td>
-                                <td>{{ $profile->last_login or '' }}</td>
-                                <td class="actions" style="width:135px">
-                                    <div class="btn-group action">
-                                        <!-- view -->
-                                        <a href="/profile/{{ $profile->id }}">
-                                            <button class="btn btn-outline-secondary">
-                                             <span class="glyphicon glyphicon-eye-open"></span>
-                                            </button>
-                                        </a>
-                                        <!-- edit -->
-                                        <a href="/profile/{{ $profile->id }}/edit">
-                                            <button class="btn btn-outline-secondary">
-                                                <span class="glyphicon glyphicon-pencil"></span>
-                                            </button>
-                                        </a>
-                                        <!-- mark as deleted -->
-                                        <a href="/profile/{{ $profile->id }}/delete">
-                                            <button class="btn btn-outline-secondary">
-                                                <span class="glyphicon glyphicon-trash"></span>
-                                            </button>
-                                        </a>
-                                        
-                                    </div>
-                                </td>
-                            </tr>
+                            @foreach($client_users as $user)
+                                @if($user->clients->contains('id', 2))
+                                <tr>
+                                    <td>{{ $user->id }}</td>
+                                    <td>{{ $user->profiles->first_name or '' }} {{ $user->profiles->last_name or ''}}</td>
+                                    @if($user->roles->first()->name !== 'superuser')
+                                        <td>{{ $user->roles->first()->name or '' }}</td>
+                                    @else
+                                        <td>admin</td>
+                                    @endif
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->created_at->format('m/d/Y') }}</td>
+                                    
+                                    <td class="actions" style="width:135px">
+                                        <div class="btn-group action">
+                                            <!-- view -->
+                                            <a href="show/user/profile/{{ $user->id }}">
+                                                <button class="btn btn-outline-secondary">
+                                                    <span class="glyphicon glyphicon-eye-open"></span>
+                                                </button>
+                                            </a>
+                                            <!-- edit -->
+                                            <a href="/profile/{{ $user->id }}/edit">
+                                                <button class="btn btn-outline-secondary">
+                                                    <span class="glyphicon glyphicon-pencil"></span>
+                                                </button>
+                                            </a>
+                                            <!-- mark as deleted -->
+                                            <a href="/profile/{{ $user->id }}/delete">
+                                                <button class="btn btn-outline-secondary">
+                                                    <span class="glyphicon glyphicon-trash"></span>
+                                                </button>
+                                            </a>
+                                            
+                                        </div>
+                                    </td>
+                                </tr>
+                                @endif
                             @endforeach
                         </tbody>
                 </table>
@@ -74,7 +78,7 @@
 @section('scripts')
 <script>
     $(function(){
-        $('#users-list tfoot th').not(":eq(5),:eq(6)").each( function () {
+        $('#users-list tfoot th').not(":eq(4),:eq(5)").each( function () {
 			var title = $('#pets-list thead th').eq($(this).index()).text();
 		    $(this).html( '<input type="text" placeholder="Search '+title+'" />' );
 		});
@@ -91,7 +95,7 @@
  
         table.columns().eq(0).each( function (colIdx) {
 
-        	if(colIdx == 5 || colIdx == 6) return
+        	if(colIdx == 4 || colIdx == 5) return
 
      
             $( 'input', table.column( colIdx ).footer() ).on( 'keyup change', function () {

@@ -49336,10 +49336,6 @@ Vue.component('passport-authorized-clients', __webpack_require__("./resources/as
 
 Vue.component('passport-personal-access-tokens', __webpack_require__("./resources/assets/js/components/PersonalAccessTokens.vue"));
 
-var app = new Vue({
-  el: '#app'
-});
-
 /***/ }),
 
 /***/ "./resources/assets/js/bootstrap.js":

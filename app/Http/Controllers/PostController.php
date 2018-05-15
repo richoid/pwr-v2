@@ -2,13 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use Session;
 use App\Post;
 use App\User;
 use App\Client;
+use App\Profile;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
 
 class PostController extends Controller
 {
+
+    public function __construct() {
+        $this->middleware(['auth', 'clearance']); //isAdmin middleware lets only users with a //specific permission permission to access these resources
+    }
     /**
      * Display a listing of the resource.
      *
@@ -16,17 +26,23 @@ class PostController extends Controller
      */
     public function index()
     {
-        //TODO: all posts (role:superuser)
-        $posts = Post::all();
+        $posts = Post::with(['clients','profiles'])->get();
 
-        return view(posts.index, compact('posts'));
+        if(!empty($posts)){
+            return view('post.index', compact('posts'));
+        } else {
+            return view('post.index')->with('message', ['There are no posts, yet.']);
+        }
     }
-    public function index_by_client($id)
+    public function posts_for_client(Post $post, $client_short)
     {
-        //TODO: all posts (role:superuser)
-        $posts = Post::where('id', $id)->get();
+        $client = Client::where('client_short', $client_short)->first();
 
-        return view(posts.index_by_client, compact('posts'));
+        $client_id = $client->id;
+
+        $posts = $client->posts()->wherePivot('client_short', $client_short)->get();
+
+        return view('post.index_for_client', compact('posts'));
     }
 
     /**
@@ -36,11 +52,14 @@ class PostController extends Controller
      */
     public function create()
     {
-        if (Auth::check())
+        dd(auth()->user());
+
+        $user = auth()->user();
+        if ($user->hasAnyRole('staff|admin|superuser'))
         {
             return view('post.create', compact('current_user','current_client'));
         }
-            return back()->with('status', 'Sorry, you&rsquo;ll need to be logged in to do that');
+            return back()->with('status', 'Sorry, you need to be logged in to do that');
         
     }
 
@@ -57,6 +76,7 @@ class PostController extends Controller
             // process the form to create a client in the db
             $input = $request->all();
             $post = Post::create($input);
+            
             return view('post.show', compact('post'))->with('status', 'Post created.');
         }
             return back()->with('status', 'Sorry, you&rsquo;ll need to be logged in to do that');
@@ -71,7 +91,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return view('post.show', compact('post'))->with('status', 'Post created.');
     }
 
     /**
@@ -82,7 +102,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('post.edit', compact('post'));
     }
 
     /**
@@ -94,7 +114,8 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        dd($post . ' : ' . $request);
+        return view('post.show', compact('post'))->with('status', 'Post Saved.');
     }
 
     /**
@@ -105,6 +126,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        dd($post);
+        return view('post.index', compact('post'))->with('status', 'Post Deleted.');
     }
 }

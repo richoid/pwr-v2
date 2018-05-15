@@ -20,8 +20,10 @@ class CreateCommentsTable extends Migration
             $table->morphs('commentable');
             $table->string('title');
             $table->text('body')->nullable();
-            $table->boolean('visible')->nullable()->default('false');
+            $table->boolean('visible')->nullable()->default(0);
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

@@ -40,11 +40,17 @@ class Client extends Model
     ];
 
     public function posts()
-	{
-		return $this->hasMany('Post');
-    }
-    public function clients()
     {
-        return $this->belongsToMany('App\Post');
+        return $this->belongsToMany('App\Post')->withPivot('user_id', 'post_type', 'client_short');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany('App\User')->withPivot('client_short');
+    }
+
+
+    public function sociable() {
+        return $this->morphTo();
     }
 }

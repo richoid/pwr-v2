@@ -23,6 +23,9 @@
         "datatables.net-bs4": "^1.10.16",
         "datatables.net-rowreorder-bs4": "^1.2.3",
         "font-awesome": "^4.7.0",
-        "glyphicons": "^0.2.0"
+        "glyphicons": "^0.2.0",
+        "octicons": "^7.3.0",
+        "popper": "^1.0.1",
+        "vue2-timepicker": "^0.1.4"
     }
 }

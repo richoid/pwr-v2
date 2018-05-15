@@ -21,8 +21,8 @@ class Profile extends Model
         return $this->belongsToMany('App\Reports');
     }
 
-    public function social() {
-        return $this->hasMany('App\Social');
+    public function sociable() {
+        return $this->morphTo();
     }
 
     public function posts()

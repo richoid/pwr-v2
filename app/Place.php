@@ -23,4 +23,6 @@ class Place extends Model
         'bound_kml_url',
         'time_zone',
         ];
+
+        
 }

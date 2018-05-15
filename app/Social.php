@@ -16,6 +16,6 @@ class Social extends Model
 */
     public function profile()
     {
-        return $this->belongsTo('App\Profile');
+        return $this->morphMany('App\Profile', 'sociable');
     }
 }

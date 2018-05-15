@@ -131,7 +131,7 @@
 </div> <!-- container -->
 
     <div class="alert alert-info">  
-        @if(Auth::user()->email == 'rich@richoid.com')	
+        @if(Auth::user()->role == 'SuperAdmin')	
             <p class="small">profile > create uses ProfileController@create then @store on submit</p>
             <p>route:web resource:profile url: profile/create</p>
         @endif      

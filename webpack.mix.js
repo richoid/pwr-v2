@@ -19,5 +19,7 @@ mix.js(
    .version()
    .autoload({
     jquery: ['$', 'window.jQuery', 'jQuery', 'jquery'], 
-    DataTable : 'datatables.net-bs', 
+    DataTable : 'datatables.net-bs',
+    popper: 'popper',
   });
+    

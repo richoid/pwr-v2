@@ -12,10 +12,11 @@
 @import 'node_modules/bootstrap/scss/bootstrap.scss';
 
 .navbar-laravel {
-  background-color: #540202;
-  color:#fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    background-color: #540202;
+    color:#fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
+
 .navbar-laravel .dropdown-item {
     color:#212529;
 }
@@ -27,7 +28,7 @@
 .navbar-item.divider {
 	color:#e19502;
 }
- .navbar-item a, .navbar-item a:visited {
+.navbar-item a, .navbar-item a:visited {
 	color:#fff;
 }
 .navbar-brand {
@@ -44,17 +45,29 @@
 }
 html {
 	background: #ddf09a url('/images/default/bg.jpg')  no-repeat center center fixed;
-  	-webkit-background-size: cover;
-  	-moz-background-size: cover;
-  	-o-background-size: cover;
-  	background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 body {
     background:transparent;
+    font-size:1.4rem;
 }
 .card {
     background-color:rgba(255, 255, 255, 0.95)
 }
 .img-circle {
     border-radius: 50%;
+}
+
+.table .thead-dark th {
+    font-size:.8em !important;
+    background-color: #540202 !important;
+    color:#fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+.input-group-text.fas {
+    line-height:1.6em;
 }

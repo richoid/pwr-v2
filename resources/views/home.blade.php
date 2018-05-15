@@ -12,7 +12,7 @@
                     <img class="card-img-top img-circle img-responsive img-bordered-primary" src="/images/users/avatar/{{ $profile->user_id }}.jpg" alt="{{ $profile->first_name . ' ' . $profile->last_name }} profile photo">
                 @endif
                     <h4 class="card-title text-capitalize mt-2">{{ $profile->first_name or '' }}&nbsp;{{ $profile->last_name or '' }}</h4>
-                    <p class="text-muted text-capitalize">{{ $profile->role or 'Volunteer' }}</p>
+                    <p class="text-muted text-capitalize">{{ $profile->user->getRoleNames()[0] or 'Volunteer' }}</p>
                     @if(Auth::id() !== $profile->id)
                     <p class="mt-4">
                         <a href="/profile/{{ $profile->id }}/message">

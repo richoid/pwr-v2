@@ -6,6 +6,7 @@ use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
+use App\Client;
 
 class User extends Authenticatable
 {
@@ -33,4 +34,10 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Profile');
     }
+
+    public function clients()
+    {
+        return $this->belongsToMany('App\Client')->withPivot('client_short');;
+    }
+    
 }

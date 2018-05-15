@@ -1,0 +1,31 @@
+Reports
+User Mgt
+    Admin
+        logs in/logs out
+        Views reports
+            index, show
+            Tasks
+                create,edit,show, index, change status
+            Comments
+                create,edit,show, index
+        Invites users
+            User/Profile
+                index, show, comment, task, activity
+            Groups (defer)
+                assign user to group(s)
+                index, show, comment, task, activity
+        Create event/activity
+            assign to Group
+            assign to User (v)
+        Send Notification
+            Freestyle
+            Auto
+                invite to App
+                invite to Activity
+                added to Group
+                alert
+
+
+
+
+News/Alerts/Calendar

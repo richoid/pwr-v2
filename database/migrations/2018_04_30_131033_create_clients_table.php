@@ -28,9 +28,6 @@ class CreateClientsTable extends Migration
             $table->string('address_region')->nullable;   // state
             $table->string('postal_code')->nullable;      // zip
             $table->integer('area_served')->nullable;      // place_id (see schema.org)
-            $table->string('map_zoom_level', 3)->default('13')->nullable;
-            $table->string('bound_kml_url', 255)->nullable;
-            $table->string('time_zone', 100)->nullable;
             $table->boolean('require_reg')->default('0');
             $table->string('brand1')->nullable;
             $table->string('brand2')->nullable;
