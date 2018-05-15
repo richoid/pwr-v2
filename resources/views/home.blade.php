@@ -6,23 +6,19 @@
         <div class="col-lg-4 col-md-4 col-sm-4 mx-auto">
             <div class="card">
                 <div class="card-body text-center">
-                @if(empty($profile->avatar_url))
+                    @php
+                        $user = App\User::with('profiles')->find(Auth::id())
+                    @endphp
+                @if(empty($user->profiles->avatar_url))
                     @include('/profile/includes/avatar_missing')
                 @else
-                    <img class="card-img-top img-circle img-responsive img-bordered-primary" src="/images/users/avatar/{{ $profile->user_id }}.jpg" alt="{{ $profile->first_name . ' ' . $profile->last_name }} profile photo">
+                    <img class="card-img-top img-circle img-responsive img-bordered-primary" src="/images/users/avatar/{{ $user->profiles->user_id }}.jpg" alt="{{ $user->profiles->first_name . ' ' . $user->profiles->last_name }} profile photo">
                 @endif
-                    <h4 class="card-title text-capitalize mt-2">{{ $profile->first_name or '' }}&nbsp;{{ $profile->last_name or '' }}</h4>
-                    <p class="text-muted text-capitalize">{{ $profile->user->getRoleNames()[0] or 'Volunteer' }}</p>
-                    @if(Auth::id() !== $profile->id)
-                    <p class="mt-4">
-                        <a href="/profile/{{ $profile->id }}/message">
-                            <button class="btn btn-sm btn-success text-center btn-block">
-                                Contact Me
-                            </button>
-                        </a>
-                    </p>
-                    @endif
-                        <a href="/profile/{{ $profile->id }}/edit">
+                    <h4 class="card-title text-capitalize mt-2">{{ $user->profiles->first_name or '' }}&nbsp;{{ $user->profiles->last_name or '' }}</h4>
+                    
+                    <p class="text-muted text-capitalize">{{ $user->getRoleNames()[0] or 'Volunteer' }}</p>
+                    
+                        <a href="/profile/{{ $user->id }}/edit">
                             <button class="btn btn-sm btn-info">
                                 Edit Account&nbsp;&nbsp;
                                 <i class="fa fa-cog align-middle"></i>
@@ -39,38 +35,37 @@
                     <div>
                         <h6 class="card-title text-uppercase mt-4">Contact Details</h6>
                     </div>
-                    <!-- social (in profile.social) -->
-                    @include('profile.social', $profile)
+                    <!-- TODO: social (in profile.social) -->
                     <div class="clearfix"></div>
                 </div><!-- /.panel-heading -->
                 <div class="card-body no-padding">
                     <ul class="list-group no-margin text-left">
                         <li class="list-group-item">
                             <i class="fa fa-envelope align-middle"></i> 
-                        <small>{{ $profile->email }}</small>
+                        <small>{{ $user->profiles->email or '' }}</small>
                         </li>
                     
                         <li class="list-group-item">
                             <i class="fa fa-phone align-middle"></i> 
-                            @if($profile->phone_m)
-                            @if($profile->phone_prefs === 'mobile')
-                            <small>Mobile: <strong>{{ $profile->phone_m }}</strong></small><br>
+                            @if($user->profiles->phone_m)
+                            @if($user->profiles->phone_prefs === 'mobile')
+                            <small>Mobile: <strong>{{ $user->profiles->phone_m }}</strong></small><br>
                             @else
-                            <small>Mobile: {{ $profile->phone_m }}</small><br>
+                            <small>Mobile: {{ $user->profiles->phone_m }}</small><br>
                             @endif
                             @endif
-                            @if($profile->phone_h)	
-                                @if($profile->phone_prefs === 'home')
-                                <small>Home: <strong>{{ $profile->phone_h }}</small></strong><br>
+                            @if($user->profiles->phone_h)	
+                                @if($user->profiles->phone_prefs === 'home')
+                                <small>Home: <strong>{{ $user->profiles->phone_h }}</small></strong><br>
                                 @else
-                                <small>Home: <strong>{{ $profile->phone_h }}</strong></small><br>
+                                <small>Home: <strong>{{ $user->profiles->phone_h }}</strong></small><br>
                                 @endif
                             @endif
-                            @if($profile->phone_w)	
-                                @if($profile->phone_prefs === 'work')
-                                <small>Work: <strong>{{ $profile->phone_w }}</strong></small><br>
+                            @if($user->profiles->phone_w)	
+                                @if($user->profiles->phone_prefs === 'work')
+                                <small>Work: <strong>{{ $user->profiles->phone_w }}</strong></small><br>
                                 @else
-                                <small>Work: {{ $profile->phone_w }}</small><br>
+                                <small>Work: {{ $user->profiles->phone_w }}</small><br>
                                 @endif
                             @endif                        
                         </li>
