@@ -39,6 +39,8 @@ Route::post('avatar-upload',['as'=>'avatar.upload.post','uses'=>'ImageUploadCont
 
 Route::resource('users', 'UserController');
 
+Route::resource('clients', 'ClientController');
+
 Route::resource('roles', 'RoleController');
 
 Route::resource('permissions', 'PermissionController');
