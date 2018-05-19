@@ -93,7 +93,7 @@ class ProfileController extends Controller
 
         $client_user = new ClientUser;
         $client_user->client_short = $request->input('client_short');
-        $client_user->client_id = ClientUser::where('client_short', $client_user->client_short);
+        $client_user->client_id = ClientUser::where('client_short', $client_user->client_short)->first();
         $client_user->user_id = $profile->user_id;
         $client_user->save();
 
