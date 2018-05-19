@@ -8,7 +8,7 @@
                 <div class="badge badge-dark float-right">{{ count($events) }}</div>
             </div>
             <div class="card-body" style="padding:1.5rem;">
-                @if(empty($events))
+                @if(count($events)==0)
                     <p colspan="8">No Events</p>
                 @else 
                     @foreach($events as $post)
