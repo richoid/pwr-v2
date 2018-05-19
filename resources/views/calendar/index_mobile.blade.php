@@ -1,10 +1,10 @@
-@extends('layouts.app')
+@extends('layouts.mobile')
 
 @section('content')
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h3 class="float-left">Events</h3> 
+                <h3 class="float-left">Calendar</h3> 
                 <div class="badge badge-dark float-right">{{ count($events) }}</div>
             </div>
             <div class="card-body" style="padding:1.5rem;">
