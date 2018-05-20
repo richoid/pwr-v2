@@ -29,7 +29,7 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/profile/{id}', 'ProfileController@api_profile')->middleware('auth:api');
 
-Route::get('/alerts/{client}', 'AlertsController@api_alerts')->middleware('auth:api');
+Route::get('/alerts/{client}', 'AlertsController@alerts_api')->middleware('auth:api');
 
 Route::get('/calendar/{client}', 'CalendarController@api_calendar')->middleware('auth:api');
 /**

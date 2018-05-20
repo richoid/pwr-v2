@@ -26,7 +26,7 @@ class AlertsController extends Controller
 
         $client_id = $client->id;
 
-        $alerts = $client->posts()->wherePivot('client_short', $client_short)->wherePivot('post_type', 'alert')->get();
+        $alerts = $client->posts()->wherePivot('client_short', $client_short)->wherePivot('post_type', 'alert')->first();
 
         if(!empty($alerts)){
             return response()->json($alerts, 200);
