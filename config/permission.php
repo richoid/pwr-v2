@@ -14,6 +14,7 @@ return [
          */
 
         'permission' => Spatie\Permission\Models\Permission::class,
+        //'permission' => App\Permission::class,
 
         /*
          * When using the "HasRoles" trait from this package, we need to know which
@@ -25,6 +26,7 @@ return [
          */
 
         'role' => Spatie\Permission\Models\Role::class,
+        //'role' => App\Role::class,
 
     ],
 
