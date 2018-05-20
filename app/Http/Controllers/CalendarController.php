@@ -19,7 +19,7 @@ class CalendarController extends Controller
         return view('calendar.index_mobile', compact('events'));
     }
 
-    public function calendar_api(Post $post, $client_short)
+    public function api_calendar(Post $post, $client_short)
     {
         $client = Client::where('client_short', $client_short)->first();
 
