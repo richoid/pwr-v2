@@ -3,72 +3,82 @@
 @section('content')
     <div class="container">
         <div class="card" id="postCreate">
-            {{ Form::open(array('route' => 'posts.store')) }}
+            {{ Form::open(['route' => 'posts.store']) }}
+            {{ csrf_field() }}
             <div class="card-header">
                 <div class="form-check form-check-inline">
                     
-                    <h3 class="d-inline-block pr-3 pb-0">Create Post:</h3>
+                <h3 class="d-inline-block pr-3 pb-0 text-capitalize">Create @{{type}}:</h3>
                 
                     <div class="btn-group-toggle" data-toggle="buttons" @click="showNewsElements()">
                         <div class="form-group d-inline-block pr-3 pb-0 mb-0">
-                            <label for="type-news" class="btn btn-primary form-check-label">
-                                News  &nbsp;{{ Form::checkbox('type-news', 'news', false, [
+                            <label for="settype" class="btn btn-primary form-check-label">
+                                News  &nbsp;{{ Form::radio('settype', 'news', false, [
                                     'class'=>'form-check-input', 
                                     'autocomplete'=>'off',
-                                    'v-model' => 'NewsElements',
-                                    'true-value' => 'true',
-                                    'false-value' => 'false'
-                                    ]) }}
-                            </label>
-                        </div>
-                    </div>
-                    <div class="btn-group-toggle" data-toggle="buttons" @click="showAlertElements()">
-                        <div class="form-group d-inline-block pr-3 pb-0 mb-0">
-                            <label for="type-alert" class="btn btn-primary form-check-label">
-                                Alert  &nbsp;{{ Form::checkbox('type-alert', 'alert', false, [
-                                    'class'=>'form-check-input', 
-                                    'autocomplete'=>'off',
-                                    'v-model' => 'AlertElements',
-                                    'true-value' => 'true',
-                                    'false-value' => 'false'
-                                    ]) }}
-                            </label>
-                        </div>
-                    </div>
-                    <div class="btn-group-toggle" data-toggle="buttons" @click="showCalendarElements()">
-                        <div class="form-group d-inline-block pr-3 pb-0 mb-0">
-                            <label for="type-calendar" class="btn btn-primary form-check-label">
-                                Calendar  &nbsp;{{ Form::checkbox('type-calendar', '', false, [
-                                    'class'=>'form-check-input', 
-                                    'autocomplete'=>'off',
-                                    'v-model' => 'CalendarElements',
-                                    'true-value' => 'true',
-                                    'false-value' => 'false'
+                                    'v-model' => 'type',
                                     ]) }}
                             </label>
                         </div>
                     </div>
                     <div class="btn-group-toggle" data-toggle="buttons" @click="showInfoElements()">
                         <div class="form-group d-inline-block pr-3 pb-0 mb-0">
-                            <label for="type-info" class="btn btn-primary form-check-label">
-                                Info &nbsp;{{ Form::checkbox('type-info', '', false, [
-                                    'class'=>'form-check-input', 
+                            <label for="settype" class="btn btn-primary form-check-label">
+                                Info &nbsp;{{ Form::radio('settype', 'info', false, [
+                                    'class'=>'form-check-input info', 
                                     'autocomplete'=>'off',
-                                    'v-model' => 'InfoElements',
-                                    'true-value' => 'true',
-                                    'false-value' => 'false'
+                                    'v-model' => 'type'
                                     ]) }}
                             </label>
                         </div>
                     </div>
+                    <div class="btn-group-toggle" data-toggle="buttons" @click="showAlertElements()">
+                        <div class="form-group d-inline-block pr-3 pb-0 mb-0">
+                            <label for="settype" class="btn btn-primary form-check-label">
+                                Alert  &nbsp;{{ Form::radio('settype', 'alert', false, [
+                                    'class'=>'form-check-input alerts', 
+                                    'autocomplete'=>'off',
+                                    'v-model' => 'type'
+                                    ]) }}
+                            </label>
+                        </div>
+                    </div>
+                    <div class="btn-group-toggle" data-toggle="buttons" @click="showCalendarElements()">
+                        <div class="form-group d-inline-block pr-3 pb-0 mb-0">
+                            <label for="settype" class="btn btn-primary form-check-label">
+                                Calendar  &nbsp;{{ Form::radio('settype', 'calendar', false, [
+                                    'class'=>'form-check-input calendar', 
+                                    'autocomplete'=>'off',
+                                    'v-model' => 'type'
+                                    ]) }}
+                            </label>
+                        </div>
+                    </div>
+                    
                 </div><!-- end form-check inline -->    
             </div>
             <div class="card-body" style="padding:1.5rem;">
                     {{ Form::hidden('user_id', auth()->user()->id )}}
-                    {{ Form::hidden('type', '', ['v-model' => 'type'])}}
+                    {{ Form::hidden('post_type', '', ['v-model' => 'type'])}}
+                    {{ Form::hidden('status', '', ['v-model' => 'status'])}}
+                    {{ Form::hidden('alert_level', '', ['v-model' => 'alertLevel'])}}
+                    {{ Form::hidden('client_id', 2 )}}
+                    {{ Form::hidden('start_date', '', ['v-model' => 'startDateCombined'])}}
+                    {{ Form::hidden('end_date', '', ['v-model' => 'endDateCombined'])}}
+                    {{ Form::hidden('publish_date', '', ['v-model' => 'publishDateCombined'])}}
+                    {{ Form::hidden('archive_date', '', ['v-model' => 'archiveDateCombined'])}}
+
+                <div class="form-group" v-if="CalendarElements">
+                    @include('post.include.calendar_elements')
+                </div>
+                <div class="form-group" v-if="AlertElements">
+                    @include('post.include.alert_elements')
+                </div>
+
                 <div class="form-group">
                     {{ Form::label('title', 'Title') }}
                     {{ Form::text('title', null, array('class' => 'form-control')) }}
+
                     <br>
         
                     {{ Form::label('body', 'Content') }}
@@ -83,18 +93,11 @@
                 <div class="row extra-fields">
                     <div class="col-md-12">
                         <div class="form-row" v-if="NewsElements">
-                            News
-                        </div>
-
-                        <div class="form-group" v-if="AlertElements">
-                                <p>alerts</p>
-                        </div>
-                        <div class="form-group" v-if="CalendarElements">
-                            <p>calendar</p>
+                            <!-- Extra News Elements (none, now)-->
                         </div>
                         <div class="form-group" v-if="InfoElements">
-                            <p>Info</p>
-                        </div>
+                            <!-- Extra Info Elements (none, now)-->
+                        </div>                       
                     </div>
                     
                 </div> <!-- end row extra-fields-->
@@ -102,34 +105,34 @@
                     <div class="col">
                         <div class="form-check form-check-inline">
                             <div class="form-group d-inline-block pr-3 pb-0 mb-0">
-                                <label for="status" class="form-check-label pr-3 btn btn-success" @click="hideStatusElements()">
-                                    Publish Immediately &nbsp;{{ Form::radio('status', 'published', true, [
+                                <label for="publishBtn" class="form-check-label pr-3 btn btn-success" @click="hideStatusElements()">
+                                    Publish Immediately &nbsp;{{ Form::checkbox('publishBtn', false, false, [
                                         'class'=>'form-check-input',
-                                        'v-model' => 'status'
+                                        'v-model' => 'publishBtn',
                                     ]) }}
                                 </label>
                             </div>
                             <div class="form-group d-inline-block pr-3 pb-0 mb-0">
-                                <label for="status" class="form-check-label btn btn-warning" @click="showStatusElements()">
-                                    Publish Later &nbsp;{{ Form::radio('status', 'draft', false, [
+                                <label for="laterBtn" class="form-check-label btn btn-warning" @click="showStatusElements()">
+                                    Publish Later &nbsp;{{ Form::checkbox('laterBtn', true, true, [
                                         'class' => 'form-check-input',
-                                        'v-model' => 'status'
+                                        'v-model' => 'laterBtn',
                                         ]) }}
                                 </label>
                             </div>    
                             <div class="btn-group-toggle">
                                 <div class="form-group d-inline-block pr-3 pb-0 mb-0">
                                     <label for="archive" class="form-check-label btn btn-warning" data-toggle="buttons" @click="showArchiveElements()">
-                                        Schedule Archive &nbsp;{{ Form::checkbox('archive', '', true, [
+                                        Schedule Archive &nbsp;{{ Form::checkbox('archive', '', false, [
                                             'class'=>'form-check-input',
                                             'autocomplete'=>'off',
                                             'v-model' => 'ArchiveElements',
-                                            
                                             ]) }}
                                     </label>
                                 </div>
                             </div>    
                         </div> <!-- end form-check -->
+
                     </div> <!-- end col -->
                 </div> <!-- end row status-check -->
 
@@ -148,7 +151,10 @@
     </div>
 @endsection
 @section('scripts')
+    <script src="https://unpkg.com/vue"></script>
+    <script src="https://unpkg.com/vuejs-datepicker"></script>
     <script>
+        
         var vm = new Vue({
             el: '#postCreate',
             data: {
@@ -156,37 +162,131 @@
                 'InfoElements': false,
                 'AlertElements': false,
                 'NewsElements': false,
-                'StatusElements': true,
-                'status': 'draft',
+                'StatusElements': false,
+                'status': 'publish',
+                'publishBtn': true,
+                'laterBtn': false,
                 'ArchiveElements': false,
-                'type': ''
+                'type': '',
+                'alertLevel': '',
+                'startDate': '',
+                'startTime': {
+                    HH: "",
+                    mm: ""
+                },
+                'endDate': '',
+                'endTime': {
+                    HH: "",
+                    mm: ""
+                },
+                'publishDate': '',
+                'publishTime': {
+                    HH: "",
+                    mm: ""
+                },
+
+                'archiveDate': '',
+                'archiveTime': {
+                    HH: "",
+                    mm: ""
+                },
+                'startDateCombined': '',
+                'endDateCombined': '',
+                'publishDateCombined': '',
+                'archiveDateCombined': '',
             },
             methods: {
                 showCalendarElements: function() {
-                    this.CalendarElements = !this.CalendarElements
+                    this.CalendarElements = true
+                    this.InfoElements = false
+                    this.AlertElements = false
+                    this.NewsElements = false
+                    this.type = 'calendar'
                 },
                 showInfoElements: function() {
-                    this.InfoElements = !this.InfoElements
+                    this.InfoElements = true
+                    this.AlertElements = false
+                    this.CalendarElements = false
+                    this.NewsElements = false
+                    this.type = 'info'
+                    this.endDate = ''
+                    this.startTime = ''
+                    this.endTime = ''
                 },
                 showAlertElements: function() {
-                    this.AlertElements = !this.AlertElements
+                    this.AlertElements = true
+                    this.InfoElements = false
+                    this.CalendarElements = false
+                    this.NewsElements = false
+                    this.type = 'alert'
+                    this.start = ''
+                    this.endDate = ''
+                    this.startTime = ''
+                    this.endTime = ''
                 },
                 showNewsElements: function() {
-                    this.NewsElements = !this.NewsElements
+                    this.NewsElements = true
+                    this.AlertElements = false
+                    this.InfoElements = false
+                    this.CalendarElements = false
+                    this.type = 'news'
+                    this.startDateCombined = ''
+                    this.endDateCombined = ''
                 },
                 showStatusElements: function() {
-                    this.StatusElements = this.StatusElements = true
+                    this.StatusElements = this.StatusElements=true
+                    this.laterBtn = this.laterBtn = true
+                    this.publishBtn = this.publishBtn = false
                     this.status = 'draft'
                 },
                 hideStatusElements: function() {
                     this.StatusElements = this.StatusElements = false
-                    this.status = 'published'
+                    this.publishBtn = this.publishBtn = true
+                    this.laterBtn = this.laterBtn = false
+                    this.status = 'publish'
                 },
                 showArchiveElements: function() {
                     this.ArchiveElements = !this.ArchiveElements
+                },
+                setAlert: function(val) {
+                    this.alertLevel = val
+                },
+                customFormatter(date) {
+                    return moment(date).format('M/d/YYYY');
                 }
+            },
+            computed: {
+                startDateCombine: function () {
+                    this.startDateCombined = moment(this.startDate).format('YYYY-MM-DD')
+                    +' '+this.startTime.HH
+                    +':'+this.startTime.mm
+                    +':00'
+                },
+                endDateCombine: function () {
+                    this.endDateCombined = moment(this.endDate).format('YYYY-MM-DD')
+                    +' '+this.endTime.HH
+                    +':'+this.endTime.mm
+                    +':00'
+                },
+                publishDateCombine: function () {
+                    this.publishDateCombined = moment(this.publishDate).format('YYYY-MM-DD')
+                    +' '+this.publishTime.HH
+                    +':'+this.publishTime.mm
+                    +':00'
+                },
+                archiveDateCombine: function () {
+                    this.archiveDateCombined = moment(this.archiveDate).format('YYYY-MM-DD')
+                    +' '+this.archiveTime.HH
+                    +':'+this.archiveTime.mm
+                    +':00'
+                }
+            },
+            components: {
+                vuejsDatepicker,
+                VueTimepicker,
             }
         })
     </script>
+    
 
 @endsection

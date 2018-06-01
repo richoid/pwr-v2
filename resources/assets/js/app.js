@@ -8,7 +8,12 @@
 require('./bootstrap');
 require('./glyphicons');
 
+window.moment = require('moment');
 window.Vue = require('vue');
+window.VueTimepicker = require('vue2-timepicker');
+
+
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

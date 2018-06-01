@@ -15,11 +15,14 @@ mix.js(
     ['resources/assets/js/app.js','resources/assets/js/glyphicons.js'], 
     'public/js'
     )
-   .sass('resources/assets/sass/app.scss', 'public/css')
-   .version()
-   .autoload({
-    jquery: ['$', 'window.jQuery', 'jQuery', 'jquery'], 
-    DataTable : 'datatables.net-bs',
-    popper: 'popper',
-  });
+    .sass('resources/assets/sass/app.scss', 'public/css')
+    .version()
+    .autoload({
+        jquery: ['$', 'window.jQuery', 'jQuery', 'jquery'], 
+        DataTable : 'datatables.net-bs',
+        popper: 'popper',
+        moment: 'moment',
+        vuejsdatepicker: 'vuejs-datepicker',
+        vue2timepicker: 'vue2-timepicker'
+    }).sourceMaps();
     

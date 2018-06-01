@@ -28,4 +28,17 @@ User Mgt
 
 
 
-News/Alerts/Calendar
+News/Alerts/Calendar/Info > Posts
+
+clientNow() > gets client_short from subdomain and returns Client model
+(in Helpers > ClientRouteHelper)
+
+/**
+* Each client will have at least one "areaServed" in the pivot model 'ClientPlace' pointing to a Place
+* geospatiallyContains (contains), geospatiallyCoveredBy (covered_by),geospatiallyCovers (covers)
+* geospatiallyCrosses (crosses) ,geospatiallyDisjoint (disjoint - adjacent), geospatiallyEquals (equals)
+* geospatiallyIntersects (intersects) ,geospatiallyOverlaps (overlaps) ,geospatiallyTouches (touches)
+* geospatiallyWithin (within)
+* prefer: within, contains, crosses (trails, rivers), overlaps, touches, adjacent
+* from: http://schema.org/Place & https://en.wikipedia.org/wiki/DE-9IM
+*/

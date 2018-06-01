@@ -100,12 +100,11 @@ class ProfileController extends Controller
         return redirect('home')->with('message', 'Profile saved.');
     }
 
-    public function delete($id)
+    public function destroy(Profile $profile)
     {
-        $profile = App\Profile::findOrFail($id);
         $profile->delete();
 
-        return redirect('/users')->with('message', 'User record updated.');
+        return redirect('/users')->with('message', 'User record deleted.');
     }
 
     public function api_profile(Request $request, $id)

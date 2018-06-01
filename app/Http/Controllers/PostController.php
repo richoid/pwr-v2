@@ -7,6 +7,7 @@ use Session;
 use App\Post;
 use App\User;
 use App\Client;
+use App\ClientPost;
 use App\Profile;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
@@ -52,12 +53,12 @@ class PostController extends Controller
      */
     public function create()
     {
-        dd(auth()->user());
 
         $user = auth()->user();
         if ($user->hasAnyRole('staff|admin|superuser'))
         {
-            return view('post.create', compact('current_user','current_client'));
+
+            return view('post.create');
         }
             return back()->with('status', 'Sorry, you need to be logged in to do that');
         
@@ -71,15 +72,60 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::check())
+        $meta = [];
+        $user = auth()->user();
+        if ($user->hasAnyRole('staff|admin|superuser'))
         {
-            // process the form to create a client in the db
-            $input = $request->all();
-            $post = Post::create($input);
+            $input['user_id'] = Auth::id();
+
+            //post fields
+            $input['title'] = $request->title;
+            $input['body'] = $request->body;
+            $input['short'] = $request->short;
+            $input['status'] = $request->status;
+
+            if($request->post_type == 'calendar') {
+                $input['start_date'] = $request->startDate;
+                $input['end_date'] = $request->endDate;
+            }
+
+            if($request->post_type == 'alert') {
+                $input['alert_level'] = $request->alert_level;
+            }
+
+            if($request->status !== 'publish') {
+                //not published, there should be a date: TODO: validate for date: required
+                $input['publish_date'] = $request->publish_date;
+
+                //and make the status draft
+                $input['status'] = 'draft'; 
+            } else {
+                // if publishing now, let's make now the publish date
+                $input['publish_date'] = \Carbon\Carbon::now()->toDateTimeString();
+                $input['status'] = 'publish'; 
+            }
+
+            if(!empty($request->archive_date)) {
+                $input['archive_date'] = $request->archive_date;
+            }
+                
+            
+            $posted = Post::create($input);
+            
+            $meta['user_id'] = Auth::id();
+            $meta['client_id'] = ClientNow()->id;
+            $meta['client_short'] = ClientNow()->client_short;
+            $meta['post_type'] = $request->post_type;
+            $meta['post_id'] = $posted->id;
+
+            $meta = ClientPost::create($meta);
+            
+            $post = Post::with('clients')->find($posted->id);
             
             return view('post.show', compact('post'))->with('status', 'Post created.');
         }
-            return back()->with('status', 'Sorry, you&rsquo;ll need to be logged in to do that');
+            
+        return back()->with('status', 'Sorry, you need to be logged in to do that');
         
     }
 
@@ -118,15 +164,13 @@ class PostController extends Controller
         return view('post.show', compact('post'))->with('status', 'Post Saved.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Post  $post
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Post $post)
     {
-        dd($post);
-        return view('post.index', compact('post'))->with('status', 'Post Deleted.');
+        $id = $post->id;
+        $post->clients()->detach();
+        $post->delete();
+
+        return back()->with('status', 'Post ID #' . $id . ' Deleted.');
     }
+
 }

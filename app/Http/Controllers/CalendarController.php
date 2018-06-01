@@ -14,7 +14,9 @@ class CalendarController extends Controller
 
         $client_id = $client->id;
 
-        $events = $client->posts()->wherePivot('client_short', $client_short)->wherePivot('post_type', 'calendar')->get();
+        $events = $client->posts()
+                ->wherePivot('client_short', $client_short)
+                ->wherePivot('post_type', 'calendar')->get();
 
         return view('calendar.index_mobile', compact('events'));
     }
@@ -25,7 +27,9 @@ class CalendarController extends Controller
 
         $client_id = $client->id;
 
-        $events = $client->posts()->wherePivot('client_short', $client_short)->wherePivot('post_type', 'calendar')->get();
+        $events = $client->posts()
+                ->wherePivot('client_short', $client_short)
+                ->wherePivot('post_type', 'calendar')->get();
 
         if(!empty($events)){
             return response()->json($events, 200);

@@ -43,7 +43,7 @@ class Post extends Model
 
     public function users() 
     {
-		return $this->belongsTo('App\Profile', 'user_id')->withPivot('client_short');
+		return $this->belongsTo('App\Profile', 'user_id');
     }
 
     public function comments()

@@ -1,37 +1,64 @@
 <!-- publish-elements -->
+<hr>
 <div class="row publish-elements">
-        <hr>
-        <div class="form-group col" v-if="StatusElements">
-            
-            {{ Form::label('publish_date', 'Publish Date') }}
-            <div class="input-group">
-            <i class="input-group-text fas fa-calendar"></i> 
-                {{ Form::text('publish_date', null, ['class' => 'form-control']) }}
+    <div class="col-md-6 col-sm-12" v-if="StatusElements">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group" >
+                    {{ Form::label('publish_date', 'Publish Date') }}
+                    <div class="input-group">
+                        <i class="input-group-text fas fa-calendar"></i> 
+                        <vuejs-datepicker 
+                            name="publishDate" 
+                            :format="customFormatter" 
+                            :bootstrap-styling="true" 
+                            v-model="publishDate"
+                        >
+                        </vuejs-datepicker>
+                    </div>
+                </div>
+            </div>    
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ Form::label('publish_time', 'Publish Time') }}
+                    <div class="input-group">
+                        <i class="input-group-text fas fa-clock"></i>
+                        <vue-timepicker :minute-interval="5" format="hh:mm A" v-model="publishTime"></vue-timepicker>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="form-group col" v-if="StatusElements">
-            
-            {{ Form::label('publish_time', 'Publish Time') }}
-            <div class="input-group">
-                <i class="input-group-text fas fa-clock"></i>
-                {{ Form::text('publish_time', null, ['class' => 'form-control']) }}
+    </div>
+    
+    <div class="col-md-6 col-sm-12" v-if="ArchiveElements">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ Form::label('archive_date', 'Archive Date') }}
+                    <div class="input-group">
+                        <i class="input-group-text fas fa-calendar">
+                        </i> 
+                        <vuejs-datepicker 
+                            name="archiveDate" 
+                            :format="customFormatter" 
+                            :bootstrap-styling="true" 
+                            v-model="archiveDate"
+                        >
+                        </vuejs-datepicker>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                    {{ Form::label('archive_time', 'Archive Time') }}
+                    <div class="input-group">
+                        <i class="input-group-text fas fa-clock">
+                        </i>        
+                        <vue-timepicker :minute-interval="5" format="hh:mm A" v-model="archiveTime"></vue-timepicker>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="form-group col" v-if="ArchiveElements">
-            
-            {{ Form::label('end_date', 'Archive Date') }}
-            <div class="input-group">
-                <i class="input-group-text fas fa-calendar">
-                </i> 
-                {{ Form::text('end_date', null, ['class' => 'form-control']) }}
-            </div>
-        </div>
-        <div class="form-group col" v-if="ArchiveElements">
-            {{ Form::label('end_time', 'Archive Time') }}
-            <div class="input-group">
-                <i class="input-group-text fas fa-clock">
-                </i>        
-                {{ Form::text('end_time', null, ['class' => 'form-control']) }}
-            </div>
-        </div>
-    </div><!-- end row publish-elements -->
+    
+    </div>
+</div><!-- end row publish-elements -->

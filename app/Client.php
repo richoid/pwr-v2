@@ -49,6 +49,11 @@ class Client extends Model
         return $this->belongsToMany('App\User')->withPivot('client_short');
     }
 
+    public function places()
+    {
+        return $this->belongsToMany('App\Place')->withPivot('geo_relationship');
+    }
+
 
     public function sociable() {
         return $this->morphTo();

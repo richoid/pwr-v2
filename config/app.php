@@ -161,6 +161,8 @@ return [
         App\Providers\RouteServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
         Laravel\Passport\PassportServiceProvider::class,
+        browner12\helpers\HelperServiceProvider::class,
+
     ],
 
     /*

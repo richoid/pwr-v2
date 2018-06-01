@@ -49,7 +49,9 @@
                                             @else
                                                 <td>
                                             @endif
-                                                {{ $post->postable_type }}
+                                            @foreach($post->clients as $client)
+                                                {{ $client->pivot->post_type }}
+                                            @endforeach
                                             </td>
                                             <td>{{ $post->profiles->first_name or '' }} {{ $post->profiles->last_name or ''}}</td>
                                         
@@ -59,12 +61,12 @@
                                             <td class="small">{{ $post->created_at->tz('America/Los_Angeles')->format('m/d/y g:i a') }}</td>
                                         
                                             <td class="small">
-                                                @if($post->start_date)
-                                                    {{ $post->start_date->tz('America/Los_Angeles')->format('m/d/y g:i a') }}
+                                                @if($post->publish_date)
+                                                    {{ $post->publish_date->tz('America/Los_Angeles')->format('m/d/y g:i a') }}
                                                     <br>
                                                 @endif
-                                                @if($post->end_date)
-                                                {{ $post->end_date->tz('America/Los_Angeles')->format('m/d/y g:i a') }}
+                                                @if($post->archive_date)
+                                                {{ $post->archive_date->tz('America/Los_Angeles')->format('m/d/y g:i a') }}
                                                 @endif
                                             </td>
 
@@ -85,6 +87,7 @@
                                                     <!-- mark as deleted -->
                                                     <form action="{{ route( 'posts.destroy', ['id' => $post->id] ) }}" method="POST">
                                                         <input type="hidden" name="_method" value="DELETE">
+                                                        {{ csrf_field() }}
                                                         <button class="btn btn-outline-secondary">
                                                             <span class="glyphicon glyphicon-trash"></span>
                                                         </button>
