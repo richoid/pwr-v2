@@ -32,7 +32,7 @@
                                     Created by: <strong>{{  $post->users->first_name }} {{  $post->users->last_name }} 
                                     </strong> at <strong>{{  $post->created_at->format('m/d/Y g:i a') }} </strong>
                                     @if(!empty($post->publish_date)) 
-                                    | @if($post->publish_date < Carbon::now()) 
+                                    | @if($post->publish_date < Carbon\Carbon::now()) 
                                         Published on: 
                                     @else 
                                         Publishes on: 
