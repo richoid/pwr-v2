@@ -4,7 +4,7 @@
             <div class="btn-group-toggle" data-toggle="buttons" @click="setAlert('light')">
                 <div class="form-group d-inline-block pr-3 pb-0 mb-0">
                     <label for="alertLevel" class="btn btn-light form-check-label">
-                        None:  &nbsp;{{ Form::radio('alertLevel', 'light', false, [
+                        None:  &nbsp;{{ Form::radio('alertLevel', 'none', false, [
                             'class'=>'form-check-input', 
                             'autocomplete'=>'off',
                             'v-model' => 'alertLevel',
@@ -45,10 +45,10 @@
                     </label>
                 </div>
             </div>
-            <div class="btn-group-toggle" data-toggle="buttons" @click="setAlert('success')">
+            <div class="btn-group-toggle" data-toggle="buttons" @click="setAlert('resolved')">
                 <div class="form-group d-inline-block pr-3 pb-0 mb-0">
-                    <label for="alertLevel" class="btn btn-warning form-check-label">
-                        Resolved:  &nbsp;{{ Form::radio('alertLevel', 'success', false, [
+                    <label for="alertLevel" class="btn btn-success form-check-label">
+                        Resolved:  &nbsp;{{ Form::radio('alertLevel', 'resolved', false, [
                             'class'=>'form-check-input', 
                             'autocomplete'=>'off',
                             'v-model' => 'alertLevel',

@@ -5,7 +5,7 @@
         <hr>
         <div class="form-group col">
             
-            {{ Form::label('start_date', 'Start Date') }}
+            {{ Form::label('start_date', 'Event Start Date') }}
             <div class="input-group">
             <i class="input-group-text fas fa-calendar"></i> 
                 <vuejs-datepicker 
@@ -43,7 +43,7 @@
             </div>
         </div>
         <div class="form-group col">
-            {{ Form::label('end_time', 'End Time') }}
+            {{ Form::label('end_time', 'Event End Time') }}
             <div class="input-group">
                 <i class="input-group-text fas fa-clock">
                 </i>        

@@ -9,6 +9,7 @@ use App\User;
 use App\Client;
 use App\ClientPost;
 use App\Profile;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
@@ -74,19 +75,21 @@ class PostController extends Controller
     {
         $meta = [];
         $user = auth()->user();
+        $client = Client::with('places')->where('id', $request->client_id)->first();
+        $tz = $client->places->first()->time_zone;
+ //       dd($tz);
         if ($user->hasAnyRole('staff|admin|superuser'))
         {
             $input['user_id'] = Auth::id();
-
+//dd($request);
             //post fields
             $input['title'] = $request->title;
             $input['body'] = $request->body;
             $input['short'] = $request->short;
             $input['status'] = $request->status;
-
             if($request->post_type == 'calendar') {
-                $input['start_date'] = $request->startDate;
-                $input['end_date'] = $request->endDate;
+                $input['start_date'] = Carbon::parse($request->start_date);
+                $input['end_date'] = Carbon::parse($request->end_date);
             }
 
             if($request->post_type == 'alert') {
@@ -95,18 +98,18 @@ class PostController extends Controller
 
             if($request->status !== 'publish') {
                 //not published, there should be a date: TODO: validate for date: required
-                $input['publish_date'] = $request->publish_date;
+                $input['publish_date'] = Carbon::parse($request->publish_date);
 
                 //and make the status draft
                 $input['status'] = 'draft'; 
             } else {
                 // if publishing now, let's make now the publish date
-                $input['publish_date'] = \Carbon\Carbon::now()->toDateTimeString();
+                $input['publish_date'] = \Carbon\Carbon::now($tz);
                 $input['status'] = 'publish'; 
             }
 
             if(!empty($request->archive_date)) {
-                $input['archive_date'] = $request->archive_date;
+                $input['archive_date'] = Carbon::parse($request->archive_date);
             }
                 
             
@@ -122,10 +125,10 @@ class PostController extends Controller
             
             $post = Post::with('clients')->find($posted->id);
             
-            return view('post.show', compact('post'))->with('status', 'Post created.');
+            return view('post.show', compact('post'))->with('message', 'Post created.');
         }
             
-        return back()->with('status', 'Sorry, you need to be logged in to do that');
+        return back()->with('message', 'Sorry, you need to be logged in to do that');
         
     }
 
@@ -160,7 +163,28 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        dd($post . ' : ' . $request);
+        //dd($request);
+        $client = clientNow();
+        $tz = $client->places->first()->time_zone;
+        $post_update = collect(); //empty collection
+        $post_update = $request->all(); // everything from the webform into the collection
+
+        //override the dates from the request with timezone adjustments as carbon objects
+        if(!empty($request->publish_date)){
+            $post_update->publish_date = Carbon::parse($request->publish_date, $tz)->utc;
+        }
+        if(!empty($request->archive_date)){
+            $post_update->archive_date = Carbon::parse($request->archive_date, $tz)->utc;
+        }
+        if(!empty($request->start_date)){
+            $post_update->start_date = Carbon::parse($request->start_date, $tz)->utc;
+        }
+        if(!empty($request->end_date)){
+            $post_update->end_date = Carbon::parse($request->end_date, $tz)->utc;
+        }
+
+        $post->update($post_update);
+
         return view('post.show', compact('post'))->with('status', 'Post Saved.');
     }
 
