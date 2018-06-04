@@ -59,7 +59,7 @@ Route::get('m/calendar/{client}', 'CalendarController@calendar_mobile')->name('m
 Route::resource('calendar', 'CalendarController');
 
 //alerts
-Route::get('m/alerts/{client}', 'AlertsController@alerts_api')->name('mobile.alerts');
+Route::get('m/alerts/{client}', 'AlertsController@alerts_mobile')->name('mobile.alerts');
 Route::resource('alerts', 'AlertsController');
 
 //reports
