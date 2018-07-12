@@ -23,7 +23,13 @@
                     {{ Form::label('publish_time', 'Publish Time') }}
                     <div class="input-group">
                         <i class="input-group-text fas fa-clock"></i>
-                        <vue-timepicker :minute-interval="5" format="hh:mm A" v-model="publishTime"></vue-timepicker>
+                        <vue-timepicker 
+                        :minute-interval="5" 
+                        format="hh:mm A" 
+                        v-model="publishTime" 
+                        @blur="publishTimeHandler($event)">
+
+                        </vue-timepicker>
                     </div>
                 </div>
             </div>
@@ -54,7 +60,13 @@
                     <div class="input-group">
                         <i class="input-group-text fas fa-clock">
                         </i>        
-                        <vue-timepicker :minute-interval="5" format="hh:mm A" v-model="archiveTime"></vue-timepicker>
+                        <vue-timepicker 
+                            :minute-interval="5" 
+                            format="hh:mm A" 
+                            v-model="archiveTime"
+                            @blur="archiveTimeHandler($event)"
+                        >
+                        </vue-timepicker>
                     </div>
                 </div>
             </div>

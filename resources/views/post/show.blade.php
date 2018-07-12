@@ -45,9 +45,9 @@
                 <div class="col-md-12">
                     @if($post_type=='calendar')
                     <p style="color:#540202">
-                        {{ $post->start_date->copy()->toDayDateTimeString($tz) }} 
+                        {{ $post->start_date->copy()->timezone($tz)->toDayDateTimeString() }} 
                         &mdash; 
-                        {{ $post->end_date->copy()->toDayDateTimeString($tz) }}
+                        {{ $post->end_date->copy()->timezone($tz)->toDayDateTimeString() }}
 
                     </p>
                     @endif

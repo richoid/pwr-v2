@@ -79,16 +79,10 @@
                     {{ Form::hidden('status', '', ['v-model' => 'status'])}}
                     {{ Form::hidden('alert_level', '', ['v-model' => 'alertLevel'])}}
                     {{ Form::hidden('client_id', 2 )}}
-
-                    {{ Form::hidden('start_date', '', ['v-model' => 'startDate'])}}
-                    {{ Form::hidden('end_date', '', ['v-model' => 'endDate'])}}
-                    {{ Form::hidden('publish_date', '', ['v-model' => 'publishDate'])}}
-                    {{ Form::hidden('archive_date', '', ['v-model' => 'archiveDate'])}}
-                    {{ Form::hidden('start_time', '', ['v-model' => 'startTimeCombined'])}}
-                    {{ Form::hidden('end_time', '', ['v-model' => 'endTimeCombined'])}}
-                    {{ Form::hidden('publish_time', '', ['v-model' => 'publishTimeCombined'])}}
-                    {{ Form::hidden('archive_time', '', ['v-model' => 'archiveTimeCombined'])}}
-
+                    {{ Form::hidden('start_date', '', ['v-model' => 'startDateCombined'])}}
+                    {{ Form::hidden('end_date', '', ['v-model' => 'endDateCombined'])}}
+                    {{ Form::hidden('publish_date', '', ['v-model' => 'publishDateCombined'])}}
+                    {{ Form::hidden('archive_date', '', ['v-model' => 'archiveDateCombined'])}}
 
                 <div class="form-group" v-if="CalendarElements">
                     @include('post.include.calendar_elements')
@@ -193,55 +187,33 @@
                 'alertLevel': 'none',
                 'startDate': '',
                 'startTime': {
-                    hh: '',
-                    mm: '',
-                    ss: '00',
-                    A: ''
+                    HH: "",
+                    mm: ""
                 },
+                'startTimeCombined': '',
                 'endDate': '',
                 'endTime': {
-                    hh: '',
-                    mm: '',
-                    ss: '00',
-                    A: ''
+                    HH: "",
+                    mm: ""
                 },
+                'endTimeCombined': '',
                 'publishDate': '',
                 'publishTime': {
-                    hh: '',
-                    mm: '',
-                    ss: '00',
-                    A: ''
+                    HH: "",
+                    mm: ""
                 },
 
                 'archiveDate': '',
                 'archiveTime': {
-                    hh: '',
-                    mm: '',
-                    ss: '00',
-                    A: ''
+                    HH: "",
+                    mm: ""
                 },
-                'startTimeCombined':'',
-                'endTimeCombined':'',
-                'archiveTimeCombined':'',
-                'publishTimeCombined':'',
+                'startDateCombined': '',
+                'endDateCombined': '',
+                'publishDateCombined': '',
+                'archiveDateCombined': '',
             },
             methods: {
-                startTimeHandler (eventData) {
-                    console.log(eventData)
-                    //this.startTimeCombined = eventData.HH
-                },
-                endTimeHandler (eventData) {
-                    console.log(eventData)
-                    //this.endTimeCombined = eventData.HH
-                },
-                archiveTimeHandler (eventData) {
-                    console.log(eventData)
-                    //this.startTimeCombined = eventData.HH
-                },
-                publishTimeHandler (eventData) {
-                    console.log(eventData)
-                    //this.endTimeCombined = eventData.HH
-                },
                 showCalendarElements: function() {
                     this.CalendarElements = true
                     this.InfoElements = false
@@ -255,7 +227,9 @@
                     this.CalendarElements = false
                     this.NewsElements = false
                     this.type = 'info'
-                    
+                    this.endDate = ''
+                    this.startTime = ''
+                    this.endTime = ''
                 },
                 showAlertElements: function() {
                     this.AlertElements = true
@@ -263,7 +237,10 @@
                     this.CalendarElements = false
                     this.NewsElements = false
                     this.type = 'alert'
-                    
+                    this.start = ''
+                    this.endDate = ''
+                    this.startTime = ''
+                    this.endTime = ''
                 },
                 showNewsElements: function() {
                     this.NewsElements = true
@@ -271,7 +248,8 @@
                     this.InfoElements = false
                     this.CalendarElements = false
                     this.type = 'news'
-                    
+                    this.startDateCombined = ''
+                    this.endDateCombined = ''
                 },
                 showStatusElements: function() {
                     this.StatusElements = this.StatusElements=true
@@ -302,7 +280,6 @@
                     a=val.A
                     timeCombined = hours + ':' + minutes + ':' + '00 ' + a
                     this.startTimeCombined = moment('hh:mm:ss A', timeCombined)
-                    console.log("start combined:", this.startTimeCombined)
                 },
                 endTime: function (val) {
                     hours=val.HH
@@ -310,11 +287,55 @@
                     a=val.A
                     timeCombined = hours + ':' + minutes + ':' + '00 ' + a
                     this.endTimeCombined = moment('hh:mm:ss A', timeCombined)
-                    console.log("end combined:", this.endTimeCombined)
-
                 }
             },
-            
+            computed: {
+                startDateCombine: function () {
+                    if(this.CalendarElements==true) {
+                        startCombined = moment(this.startDate).format('YYYY-MM-DD')
+                        + this.startTimeCombined
+                        console.log(startCombined)
+                        this.startDateCombined = moment(startCombined, 'YYYY-MM-DD HH:mm:ss')
+                    } else {
+                        this.startDateCombined = ''
+                    }
+                },
+                endDateCombine: function () {
+                    if(this.CalendarElements==true) {
+                        endCombined = moment(this.endDate).format('YYYY-MM-DD')
+                        +' '+this.endTime.HH
+                        +':'+this.endTime.mm
+                        +':00'
+                        this.endDateCombined = moment(endCombined, 'YYYY-MM-DD HH:mm:ss')
+                    } else {
+                        this.endDateCombined = ''
+                    }
+                    
+                },
+                publishDateCombine: function () {
+                    if(this.publishBtn) {
+                        this.publishDateCombined = moment()
+                    } else {
+                        pubCombined = moment(this.publishDate).format('YYYY-MM-DD')
+                        +' '+this.publishTime.HH
+                        +':'+this.publishTime.mm
+                        +':00'
+
+                        this.publishDateCombined = moment(pubCombined, 'YYYY-MM-DD HH:mm:ss')
+                    }
+                },
+                archiveDateCombine: function () {
+                    if(this.ArchiveElements) {
+                        archCombined = moment(this.archiveDate).format('YYYY-MM-DD')
+                        +' '+this.archiveTime.HH
+                        +':'+this.archiveTime.mm
+                        +':00'
+                        this.archiveDateCombined = moment(archCombined, 'YYYY-MM-DD HH:mm:ss')
+                    } else {
+                        this.archiveDateCombined = ''
+                    }
+                }
+            },
             components: {
                 vuejsDatepicker,
                 VueTimepicker,

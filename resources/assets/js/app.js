@@ -12,9 +12,6 @@ window.moment = require('moment');
 window.Vue = require('vue');
 window.VueTimepicker = require('vue2-timepicker');
 
-
-
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

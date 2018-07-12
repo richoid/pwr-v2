@@ -1,7 +1,9 @@
 <!-- schedule-elements -->
 <div class="row schedule-elements">
-    {{ Form::hidden('start_date', '', ['v-model' => 'startDateCombined']) }}
-    {{ Form::hidden('end_date', '', ['v-model' => 'endDateCombined']) }}
+    {{ Form::hidden('start_date', '', ['v-model' => 'startDate']) }}
+    {{ Form::hidden('end_date', '', ['v-model' => 'endDate']) }}
+    {{ Form::hidden('start_time', '', ['v-model' => 'startTime']) }}
+    {{ Form::hidden('end_time', '', ['v-model' => 'endTime']) }}
         <hr>
         <div class="form-group col">
             
@@ -22,7 +24,13 @@
             {{ Form::label('start_time', 'Event Start Time') }}
             <div class="input-group">
                 <i class="input-group-text fas fa-clock"></i>
-                <vue-timepicker  :minute-interval="5" format="hh:mm A" v-model="startTime"></vue-timepicker>
+                <vue-timepicker  
+                    @blur="startTimeHandler($event)"
+                    v-model="startTime"
+                    :minute-interval="5" 
+                    format="hh:mm A" 
+                >
+                </vue-timepicker>
 
             </div>
         </div>
@@ -34,8 +42,8 @@
                 </i> 
                 <vuejs-datepicker 
                     name="endDate" 
+                    :bootstrap-styling="true"
                     :format="customFormatter" 
-                    :bootstrap-styling="true" 
                     v-model="endDate"
                 >
                 </vuejs-datepicker>
@@ -47,7 +55,13 @@
             <div class="input-group">
                 <i class="input-group-text fas fa-clock">
                 </i>        
-                <vue-timepicker  :minute-interval="5" format="hh:mm A" v-model="endTime"></vue-timepicker>
+                <vue-timepicker  
+                    @blur="endTimeHandler($event)"
+                    v-model="endTime"
+                    :minute-interval="5" 
+                    format="hh:mm A" 
+                    >
+                </vue-timepicker>
 
             </div>
         </div>

@@ -16,13 +16,14 @@ class AlertsController extends Controller
         $alerts = $client->posts()
             ->wherePivot('client_short', $client_short)
             ->wherePivot('post_type', 'alert')->get();
+            
         return view('alerts.index_mobile', compact('alerts'));
     }
 
     public function api_alerts(Post $post, $client_short)
     {
         $client = Client::where('client_short', $client_short)->first();
-        
+
         $alerts = $client->posts()
             ->wherePivot('client_short', $client_short)
             ->wherePivot('post_type', 'alert')->get();

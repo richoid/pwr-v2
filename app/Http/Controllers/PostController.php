@@ -81,35 +81,35 @@ class PostController extends Controller
         if ($user->hasAnyRole('staff|admin|superuser'))
         {
             $input['user_id'] = Auth::id();
-//dd($request);
+            // dd($request->start_date);
+            //dd(Carbon::createFromFormat('D M j Y H:i:s O', $request->start_date, $tz)->timezone('UTC'));
             //post fields
             $input['title'] = $request->title;
             $input['body'] = $request->body;
             $input['short'] = $request->short;
             $input['status'] = $request->status;
             if($request->post_type == 'calendar') {
-                $input['start_date'] = Carbon::parse($request->start_date);
-                $input['end_date'] = Carbon::parse($request->end_date);
+                $input['start_date'] = Carbon::createFromFormat('D M j Y H:i:s O', $request->start_date, $tz)->timezone('UTC');
+                $input['end_date'] = Carbon::createFromFormat('D M j Y H:i:s O', $request->end_date, $tz)->timezone('UTC');
             }
 
             if($request->post_type == 'alert') {
                 $input['alert_level'] = $request->alert_level;
             }
-
             if($request->status !== 'publish') {
                 //not published, there should be a date: TODO: validate for date: required
-                $input['publish_date'] = Carbon::parse($request->publish_date);
+                $input['publish_date'] = Carbon::createFromFormat('D M j Y H:i:s O', $request->publish_date, $tz)->timezone('UTC');
 
                 //and make the status draft
                 $input['status'] = 'draft'; 
             } else {
                 // if publishing now, let's make now the publish date
-                $input['publish_date'] = \Carbon\Carbon::now($tz);
+                $input['publish_date'] = \Carbon\Carbon::now()->timezone('UTC');
                 $input['status'] = 'publish'; 
             }
 
             if(!empty($request->archive_date)) {
-                $input['archive_date'] = Carbon::parse($request->archive_date);
+                $input['archive_date'] = Carbon::createFromFormat('D M j Y H:i:s O', $request->archive_date, $tz)->timezone('UTC');
             }
                 
             
@@ -171,16 +171,16 @@ class PostController extends Controller
 
         //override the dates from the request with timezone adjustments as carbon objects
         if(!empty($request->publish_date)){
-            $post_update->publish_date = Carbon::parse($request->publish_date, $tz)->utc;
+            $post_update->publish_date = Carbon::parse($request->publish_date, $tz)->timezone('UTC');
         }
         if(!empty($request->archive_date)){
-            $post_update->archive_date = Carbon::parse($request->archive_date, $tz)->utc;
+            $post_update->archive_date = Carbon::parse($request->archive_date, $tz)->timezone('UTC');
         }
         if(!empty($request->start_date)){
-            $post_update->start_date = Carbon::parse($request->start_date, $tz)->utc;
+            $post_update->start_date = Carbon::parse($request->start_date, $tz)->timezone('UTC');
         }
         if(!empty($request->end_date)){
-            $post_update->end_date = Carbon::parse($request->end_date, $tz)->utc;
+            $post_update->end_date = Carbon::parse($request->end_date, $tz)->timezone('UTC');
         }
 
         $post->update($post_update);
