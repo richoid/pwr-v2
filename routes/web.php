@@ -15,6 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Auth::routes();
 
 Route::get('create/user/profile', 'ProfileController@createFromUser')->name('user.profile');

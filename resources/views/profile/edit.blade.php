@@ -17,7 +17,7 @@
                 <div class="card outer-card">
                     <div class="card-header">
                         <h4 class="card-title">
-                        Add New Client
+                        Edit User Profile
                         </h4>
                     </div>
                     <div class="card-body">    

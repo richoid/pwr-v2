@@ -226,21 +226,29 @@
                 'publishTimeCombined':'',
             },
             methods: {
-                startTimeHandler (eventData) {
-                    console.log(eventData)
-                    //this.startTimeCombined = eventData.HH
+                startTimeHandler () {
+                    hours=this.startTime.hh
+                    minutes= this.startTime.mm
+                    a=this.startTime.A
+                    this.startTimeCombined = hours + ':' + minutes + ':' + '00 ' + a
                 },
-                endTimeHandler (eventData) {
-                    console.log(eventData)
-                    //this.endTimeCombined = eventData.HH
+                endTimeHandler () {
+                    hours=this.endTime.hh
+                    minutes= this.endTime.mm
+                    a=this.endTime.A
+                    this.endTimeCombined = hours + ':' + minutes + ':' + '00 ' + a
                 },
-                archiveTimeHandler (eventData) {
-                    console.log(eventData)
-                    //this.startTimeCombined = eventData.HH
+                archiveTimeHandler () {
+                    hours=this.archiveTime.hh
+                    minutes= this.archiveTime.mm
+                    a=this.archiveTime.A
+                    this.archiveTimeCombined = hours + ':' + minutes + ':' + '00 ' + a
                 },
-                publishTimeHandler (eventData) {
-                    console.log(eventData)
-                    //this.endTimeCombined = eventData.HH
+                publishTimeHandler () {
+                    hours=this.publishTime.hh
+                    minutes= this.publishTime.mm
+                    a=this.publishTime.A
+                    this.publishTimeCombined = hours + ':' + minutes + ':' + '00 ' + a
                 },
                 showCalendarElements: function() {
                     this.CalendarElements = true
@@ -294,25 +302,6 @@
                 customFormatter(date) {
                     return moment(date).format('MM/DD/YYYY');
                 },      
-            },
-            watch: {
-                startTime: function (val) {
-                    hours=val.hh
-                    minutes=val.mm
-                    a=val.A
-                    timeCombined = hours + ':' + minutes + ':' + '00 ' + a
-                    this.startTimeCombined = moment('hh:mm:ss A', timeCombined)
-                    console.log("start combined:", this.startTimeCombined)
-                },
-                endTime: function (val) {
-                    hours=val.HH
-                    minutes= val.mm
-                    a=val.A
-                    timeCombined = hours + ':' + minutes + ':' + '00 ' + a
-                    this.endTimeCombined = moment('hh:mm:ss A', timeCombined)
-                    console.log("end combined:", this.endTimeCombined)
-
-                }
             },
             
             components: {

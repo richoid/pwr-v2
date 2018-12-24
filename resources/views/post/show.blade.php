@@ -2,7 +2,14 @@
 
 @php
     $client = clientNow();
-    $tz = $client->places->first()->time_zone;
+    if(empty($client->place_id))
+    {
+        $tz = 'America/Los_Angeles';
+    } else {
+        $tz = $client->places->first()->time_zone;
+
+    }
+
     $post_type = $post->clients()->first()->pivot->post_type;
     switch ($post->alert_level) {
         case 'info':

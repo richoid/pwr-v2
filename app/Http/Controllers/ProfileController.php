@@ -62,9 +62,10 @@ class ProfileController extends Controller
 
         return view('profile.create', compact('user'));
     }
-    public function edit($id)
+    public function edit($user_id)
     {
-        $profile = Profile::findOrFail($id);
+        $user = User::findOrFail($user_id);
+        $profile = Profile::where('user_id', $user->id)->first();
         return view('profile.edit', compact('profile'));
     }
     public function update($id, Request $request)

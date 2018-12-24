@@ -78,6 +78,8 @@ class PostController extends Controller
         $client = Client::with('places')->where('id', $request->client_id)->first();
         $tz = $client->places->first()->time_zone;
  //       dd($tz);
+
+ //dd($request);
         if ($user->hasAnyRole('staff|admin|superuser'))
         {
             $input['user_id'] = Auth::id();
@@ -140,7 +142,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('post.show', compact('post'))->with('status', 'Post created.');
+        //dd($post);
+        return view('post.show', compact('post'));
     }
 
     /**
